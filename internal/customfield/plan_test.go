@@ -16,7 +16,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 	"github.com/hashicorp/terraform-plugin-go/tftypes"
 
-	"github.com/stainless-sdks/nora-test-project-repo-access-terraform/internal/customfield"
+	"github.com/nora-test-account/terraform-provider-nora-test-go-access/internal/customfield"
 )
 
 func P[T any](v T) *T { return &v }
