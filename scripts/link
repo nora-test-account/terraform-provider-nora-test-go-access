@@ -13,4 +13,4 @@ fi
 
 echo "==> Linking with local directory"
 go mod tidy -e
-go mod edit -replace github.com/nora-test-account/sdk-access-test-go="$LOCAL_GO"
+go mod edit -replace github.com/nora-test-account/sdk-access-test-go2="$LOCAL_GO"

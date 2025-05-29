@@ -11,8 +11,8 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/provider/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/nora-test-account/sdk-access-test-go"
-	"github.com/nora-test-account/sdk-access-test-go/option"
+	"github.com/nora-test-account/sdk-access-test-go2"
+	"github.com/nora-test-account/sdk-access-test-go2/option"
 )
 
 var _ provider.ProviderWithConfigValidators = (*NoraTestProjectRepoAccessProvider)(nil)

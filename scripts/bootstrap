@@ -13,8 +13,8 @@ fi
 echo "==> Installing Go dependencies…"
 
 # Set GOPRIVATE if the repository appears to be private
-REPO_STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://github.com/nora-test-account/sdk-access-test-go)
+REPO_STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://github.com/nora-test-account/sdk-access-test-go2)
 if [ "$REPO_STATUS" = "404" ]; then
-  export GOPRIVATE=github.com/nora-test-account/sdk-access-test-go
+  export GOPRIVATE=github.com/nora-test-account/sdk-access-test-go2
 fi
 go mod tidy -e || true
