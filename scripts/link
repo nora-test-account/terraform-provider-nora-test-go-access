@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+if [[ -n "$1" ]]; then
+  LOCAL_GO="$1"
+  shift
+else
+  LOCAL_GO=../nora-test-project-repo-access-go
+fi
+
+echo "==> Linking with local directory"
+go mod tidy -e
+go mod edit -replace github.com/nora-test-account/sdk-access-test-go="$LOCAL_GO"
