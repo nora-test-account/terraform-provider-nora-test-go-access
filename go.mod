@@ -1,4 +1,4 @@
-module github.com/stainless-sdks/nora-test-project-repo-access-terraform
+module github.com/nora-test-account/terraform-provider-nora-test-go-access
 
 go 1.22.0
 
