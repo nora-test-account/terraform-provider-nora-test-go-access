@@ -14,6 +14,46 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Check whether repo is public
+        id: check-repo-visibility
+        shell: bash
+        run: |
+          REPO_STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://github.com/nora-test-account/sdk-access-test-go2)
+          if [ "$REPO_STATUS" = "404" ]; then
+            echo "is-public=false" >> $GITHUB_OUTPUT
+          else
+            echo "is-public=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Check for STAINLESS_API_KEY
+        if: steps.check-repo-visibility.outputs.is-public != 'true'
+        shell: bash
+        run: |
+          if [ -z "${{ secrets.STAINLESS_API_KEY }}" ]; then
+            cat <<'EOF'
+          Error: STAINLESS_API_KEY secret is required to download Go module "github.com/nora-test-account/sdk-access-test-go2", because it's in a private repository.
+          To fix this issue:
+          1. Go to https://app.stainless.com and navigate to your organization's settings page.
+          2. On the settings page, generate a new API key.
+          3. Add the generated API key as a secret named STAINLESS_API_KEY in this repository.
+
+          For instructions on adding a secret to your repository, see https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository
+          EOF
+            exit 1
+          fi
+
+      - uses: stainless-api/retrieve-github-access-token@v1
+        id: get_token
+        if: steps.check-repo-visibility.outputs.is-public != 'true'
+        with:
+          repo: nora-test-account/sdk-access-test-go2
+          stainless-api-key: ${{ secrets.STAINLESS_API_KEY }}
+
+      - name: Configure Git for private Go modules
+        shell: bash
+        if: steps.check-repo-visibility.outputs.is-public != 'true'
+        run: git config --global url."https://x-access-token:${{ steps.get_token.outputs.github_access_token }}@github.com/".insteadOf "https://github.com/"
+
       - name: Setup go
         uses: actions/setup-go@v5
         with:
@@ -29,6 +69,46 @@ jobs:
     runs-on: ${{ github.repository == 'stainless-sdks/nora-test-project-repo-access-terraform' && 'depot-ubuntu-24.04' || 'ubuntu-latest' }}
     steps:
       - uses: actions/checkout@v4
+
+      - name: Check whether repo is public
+        id: check-repo-visibility
+        shell: bash
+        run: |
+          REPO_STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://github.com/nora-test-account/sdk-access-test-go2)
+          if [ "$REPO_STATUS" = "404" ]; then
+            echo "is-public=false" >> $GITHUB_OUTPUT
+          else
+            echo "is-public=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Check for STAINLESS_API_KEY
+        if: steps.check-repo-visibility.outputs.is-public != 'true'
+        shell: bash
+        run: |
+          if [ -z "${{ secrets.STAINLESS_API_KEY }}" ]; then
+            cat <<'EOF'
+          Error: STAINLESS_API_KEY secret is required to download Go module "github.com/nora-test-account/sdk-access-test-go2", because it's in a private repository.
+          To fix this issue:
+          1. Go to https://app.stainless.com and navigate to your organization's settings page.
+          2. On the settings page, generate a new API key.
+          3. Add the generated API key as a secret named STAINLESS_API_KEY in this repository.
+
+          For instructions on adding a secret to your repository, see https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository
+          EOF
+            exit 1
+          fi
+
+      - uses: stainless-api/retrieve-github-access-token@v1
+        id: get_token
+        if: steps.check-repo-visibility.outputs.is-public != 'true'
+        with:
+          repo: nora-test-account/sdk-access-test-go2
+          stainless-api-key: ${{ secrets.STAINLESS_API_KEY }}
+
+      - name: Configure Git for private Go modules
+        shell: bash
+        if: steps.check-repo-visibility.outputs.is-public != 'true'
+        run: git config --global url."https://x-access-token:${{ steps.get_token.outputs.github_access_token }}@github.com/".insteadOf "https://github.com/"
 
       - name: Setup go
         uses: actions/setup-go@v5
