@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/nora-test-account/sdk-access-test-go/option"
+	"github.com/nora-test-account/sdk-access-test-go2/option"
 
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
