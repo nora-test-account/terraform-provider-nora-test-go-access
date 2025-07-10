@@ -21,8 +21,8 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 
-	"github.com/stainless-sdks/nora-test-project-repo-access-terraform/internal/apijson"
-	"github.com/stainless-sdks/nora-test-project-repo-access-terraform/internal/customfield"
+	"github.com/nora-test-account/terraform-provider-nora-test-go-access/internal/apijson"
+	"github.com/nora-test-account/terraform-provider-nora-test-go-access/internal/customfield"
 )
 
 var encoders sync.Map // map[encoderEntry]encoderFunc

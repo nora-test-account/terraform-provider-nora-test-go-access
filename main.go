@@ -8,7 +8,7 @@ import (
 	"log"
 
 	"github.com/hashicorp/terraform-plugin-framework/providerserver"
-	"github.com/stainless-sdks/nora-test-project-repo-access-terraform/internal"
+	"github.com/nora-test-account/terraform-provider-nora-test-go-access/internal"
 )
 
 var (
@@ -22,7 +22,7 @@ func main() {
 	flag.Parse()
 
 	opts := providerserver.ServeOpts{
-		Address: "registry.terraform.io/stainless-sdks/nora-test-project-repo-access",
+		Address: "registry.terraform.io/nora-test-account/nora-test-project-repo-access",
 		Debug:   debug,
 	}
 

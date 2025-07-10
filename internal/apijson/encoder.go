@@ -21,7 +21,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 	"github.com/tidwall/sjson"
 
-	"github.com/stainless-sdks/nora-test-project-repo-access-terraform/internal/customfield"
+	"github.com/nora-test-account/terraform-provider-nora-test-go-access/internal/customfield"
 )
 
 var explicitJsonNull = []byte("null")
@@ -513,7 +513,7 @@ func (e *encoder) newStructTypeEncoder(t reflect.Type) encoderFunc {
 				continue
 			}
 			// Computed fields come from the server
-			if ptag.computed {
+			if ptag.computed && !ptag.forceEncode {
 				continue
 			}
 
@@ -547,6 +547,18 @@ func (e *encoder) newStructTypeEncoder(t reflect.Type) encoderFunc {
 			stateField, err := state.FieldByIndexErr(ef.idx)
 			if err != nil {
 				stateField = planField
+			}
+
+			planFieldUnknown := false
+			if planField.IsValid() {
+				attrType := reflect.TypeOf((*attr.Value)(nil)).Elem()
+				if planField.Type().Implements(attrType) {
+					planFieldUnknown = planField.Interface().(attr.Value).IsUnknown()
+				}
+			}
+
+			if planFieldUnknown && ef.tag.encodeStateValueWhenPlanUnknown && stateField.IsValid() {
+				planField = stateField
 			}
 			encoded, err := ef.fn(planField, stateField)
 			if err != nil {

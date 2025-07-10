@@ -8,8 +8,8 @@ import (
 	rs "github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 
-	"github.com/stainless-sdks/nora-test-project-repo-access-terraform/internal/customfield"
-	"github.com/stainless-sdks/nora-test-project-repo-access-terraform/internal/test_helpers"
+	"github.com/nora-test-account/terraform-provider-nora-test-go-access/internal/customfield"
+	"github.com/nora-test-account/terraform-provider-nora-test-go-access/internal/test_helpers"
 )
 
 type empty struct{}

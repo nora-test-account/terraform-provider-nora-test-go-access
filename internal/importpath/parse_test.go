@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/stainless-sdks/nora-test-project-repo-access-terraform/internal/importpath"
+	"github.com/nora-test-account/terraform-provider-nora-test-go-access/internal/importpath"
 )
 
 func TestParseID(t *testing.T) {

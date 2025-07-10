@@ -19,7 +19,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
 	"github.com/tidwall/gjson"
 
-	"github.com/stainless-sdks/nora-test-project-repo-access-terraform/internal/customfield"
+	"github.com/nora-test-account/terraform-provider-nora-test-go-access/internal/customfield"
 )
 
 // decoders is a synchronized map with roughly the following type:
@@ -758,9 +758,10 @@ func (d *decoderBuilder) newTerraformTypeDecoder(t reflect.Type) decoderFunc {
 			}
 			existingObjectListValue := value.Interface().(customfield.NestedObjectListLike)
 			if node.Type == gjson.Null {
-				if b == Always {
+				if b == Always || existingObjectListValue.IsNullOrUnknown() {
 					nullValue := existingObjectListValue.NullValue(ctx)
 					value.Set(reflect.ValueOf(nullValue))
+					return nil
 				}
 			}
 
