@@ -22,7 +22,7 @@ terraform {
   required_providers {
     nora-test-project-repo-access = {
       source  = "nora-test-account/nora-test-project-repo-access"
-      version = "~> 0.0.1-alpha.0"
+      version = "~> 0.1.0-alpha.1"
     }
   }
 }
